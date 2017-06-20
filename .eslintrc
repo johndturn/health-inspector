@@ -40,6 +40,7 @@
     "react/no-find-dom-node": 2,
     "react/no-is-mounted": 2,
     "react/no-render-return-value": 2,
-    "react/no-unused-prop-types": 2
+    "react/no-unused-prop-types": 2,
+    "no-undef": 1
   }
 }
