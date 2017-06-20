@@ -3,26 +3,40 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import About from './pages/About/About'
-import Nav from './components/Nav/Nav'
 import RestaurantInfo from './pages/RestaurantInfo/RestaurantInfo'
-import Search from './pages/Search/Search'
 import Map from './components/Map/Map'
-import registerServiceWorker from './config/registerServiceWorker'
+
+import Nav from './components/Nav/Nav'
+import ResultsList from './components/ResultsList/ResultsList'
 
 import './styles/index.css'
+import registerServiceWorker from './config/registerServiceWorker'
 
-const Inspector = () => (
-  <Router>
-    <div>
-      <Nav />
+class Inspector extends React.Component {
+  constructor() {
+    super()
 
-      <Route exact path="/" component={Search} />
-      <Route path="/about/" component={About} />
-      <Route path="/map/" component={Map} />
-      <Route path="/restaurant/:restaurantId/" component={RestaurantInfo} />
-    </div>
-  </Router>
-)
+    this.state = {
+      searchTerm: '',
+      results: []
+    }
+  }
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <Nav />
+
+          <Route exact path="/" component={ResultsList} />
+          <Route path="/about/" component={About} />
+          <Route path="/map/" component={Map} />
+          <Route path="/restaurant/:restaurantId/" component={RestaurantInfo} />
+        </div>
+      </Router>
+    )
+  }
+}
 
 ReactDOM.render(<Inspector />, document.getElementById('root'))
 registerServiceWorker()

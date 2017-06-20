@@ -1,0 +1,11 @@
+.results-list-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.results-list {
+    display: flex;
+    flex-direction: column;
+}
