@@ -1,8 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
-import registerServiceWorker from './registerServiceWorker'
-import './index.css'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+import About from './pages/About/About'
+import Nav from './components/Nav/Nav'
+import RestaurantInfo from './pages/RestaurantInfo/RestaurantInfo'
+import Search from './pages/Search/Search'
+import registerServiceWorker from './config/registerServiceWorker'
+
+import '.styles/index.css'
+
+const Inspector = () => (
+  <Router>
+    <div>
+      <Nav />
+
+      <Route exact path="/" component={Search} />
+      <Route path="/about/" component={About} />
+      <Route path="/:restaurantId/" component={RestaurantInfo} />
+    </div>
+  </Router>
+)
+
+ReactDOM.render(<Inspector />, document.getElementById('root'))
 registerServiceWorker()
