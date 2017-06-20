@@ -6,7 +6,7 @@ import About from './pages/About/About'
 import Nav from './components/Nav/Nav'
 import RestaurantInfo from './pages/RestaurantInfo/RestaurantInfo'
 import Search from './pages/Search/Search'
-import MapContainer from './pages/Map/Map'
+import Map from './components/Map/Map'
 import registerServiceWorker from './config/registerServiceWorker'
 
 import './styles/index.css'
@@ -18,7 +18,7 @@ const Inspector = () => (
 
       <Route exact path="/" component={Search} />
       <Route path="/about/" component={About} />
-      <Route path="/map/" component={MapContainer} />
+      <Route path="/map/" component={Map} />
       <Route path="/restaurant/:restaurantId/" component={RestaurantInfo} />
     </div>
   </Router>
