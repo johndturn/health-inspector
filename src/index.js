@@ -8,7 +8,7 @@ import RestaurantInfo from './pages/RestaurantInfo/RestaurantInfo'
 import Search from './pages/Search/Search'
 import registerServiceWorker from './config/registerServiceWorker'
 
-import '.styles/index.css'
+import './styles/index.css'
 
 const Inspector = () => (
   <Router>
@@ -17,7 +17,7 @@ const Inspector = () => (
 
       <Route exact path="/" component={Search} />
       <Route path="/about/" component={About} />
-      <Route path="/:restaurantId/" component={RestaurantInfo} />
+      <Route path="/restaurant/:restaurantId/" component={RestaurantInfo} />
     </div>
   </Router>
 )
