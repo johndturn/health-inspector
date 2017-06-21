@@ -1,5 +1,6 @@
 import React from 'react'
 import './SearchBar.css'
+import SearchIcon from '../../assets/searchIcon.png'
 
 class SearchBar extends React.Component {
   constructor() {
@@ -32,7 +33,9 @@ class SearchBar extends React.Component {
             placeholder="Search Restaurants"
             onChange={this.handleTextChange}
           />
-          <input type="submit" />
+          <button type="submit" className="search-button">
+            <img src={SearchIcon} className="search-icon" />
+          </button>
         </form>
       </div>
     )

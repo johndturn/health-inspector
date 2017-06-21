@@ -24,19 +24,23 @@ class Inspector extends React.Component {
   }
 
   updateSearchTerm = (searchTerm) => {
-    this.getSearchData(searchTerm).then((results) => {
-      this.setState({
-        results
+    if (searchTerm.length === 0) {
+      return null
+    } else {
+      this.getSearchData(searchTerm).then((results) => {
+        this.setState({
+          results
+        })
+      }).catch((e) => {
+        console.log(e.message)
       })
-    }).catch((e) => {
-      console.log(e.message)
-    })
+    }
   }
 
   async getSearchData(searchTerm) {
     let response
     try {
-      response = await fetch(`https://data.cityofchicago.org/resource/cwig-ma7x.json?$query=SELECT * where Contains(dba_name, "${searchTerm}") or Contains(aka_name, "${searchTerm}") LIMIT 100`)
+      response = await fetch(`https://data.cityofchicago.org/resource/cwig-ma7x.json?$query=SELECT * where Contains(upper(dba_name), upper("${searchTerm}")) or Contains(upper(aka_name), upper("${searchTerm}")) LIMIT 100`)
       if (!response.ok) {
         throw Error('Bad Request')
       }
