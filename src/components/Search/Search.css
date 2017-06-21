@@ -1,9 +1,26 @@
 .search-container {
     width: 100%;
     height: 600px;
-    background: url(../../assets/HealthInspectorBGSmall.jpg) no-repeat center bottom fixed;
+    background: url(../../assets/HealthInspectorBGSmall.jpg) no-repeat center bottom;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+.search-container-small {
+    height: 150px;
+    animation-name: shrink;
+    animation-duration: .5s;
+    animation-timing-function: ease;
+}
+
+@keyframes shrink {
+    from {
+        height: 600px;
+    }
+
+    to {
+        height: 150px;
+    }
 }
