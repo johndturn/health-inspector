@@ -40,6 +40,14 @@ class Inspector extends React.Component {
     }
   }
 
+  resetSearch = () => {
+    this.setState({
+      results: [],
+      loading: false,
+      searched: false
+    })
+  }
+
   async getSearchData(searchTerm) {
     this.setState({ loading: true })
     let response
@@ -66,7 +74,9 @@ class Inspector extends React.Component {
       <Router>
         <div>
           <Nav />
-          <Search updateSearchTerm={this.updateSearchTerm} />
+          <Search
+            updateSearchTerm={this.updateSearchTerm}
+            resetSearch={this.resetSearch} />
 
           <Route exact path="/" render={() => (
             <ResultsList

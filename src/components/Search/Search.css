@@ -9,21 +9,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: height .5s;
 }
 
 .search-container-small {
     height: 150px;
-    animation-name: shrink;
-    animation-duration: .5s;
-    animation-timing-function: ease;
-}
-
-@keyframes shrink {
-    from {
-        height: 600px;
-    }
-
-    to {
-        height: 150px;
-    }
 }

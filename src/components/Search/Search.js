@@ -22,6 +22,7 @@ class Search extends React.Component {
     return (
       <div className={classes}>
         <SearchBar
+          resetSearch={this.props.resetSearch}
           updateSearchTerm={this.props.updateSearchTerm}
           setShrink={this.setShrink} />
       </div>
@@ -29,6 +30,7 @@ class Search extends React.Component {
   }
 }
 Search.propTypes = {
-  updateSearchTerm: React.PropTypes.func.isRequired
+  updateSearchTerm: React.PropTypes.func.isRequired,
+  resetSearch: React.PropTypes.func.isRequired
 }
 export default Search

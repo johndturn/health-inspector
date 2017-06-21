@@ -1,14 +1,12 @@
 import React from 'react'
 import './SearchBar.css'
-import SearchIcon from '../../assets/searchIcon.png'
 
 class SearchBar extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      search: '',
-      results: ''
+      search: ''
     }
   }
 
@@ -20,9 +18,19 @@ class SearchBar extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.setShrink(true)
-    this.props.updateSearchTerm(this.state.search)
+    if (this.state.search !== '') {
+      this.props.setShrink(true)
+      this.props.updateSearchTerm(this.state.search)
+    }
   }
+
+  handleReset = (e) => {
+    e.preventDefault()
+    this.setState({ search: '' })
+    this.props.setShrink(false)
+    this.props.resetSearch()
+  }
+
   render() {
     return (
       <div className="searchbar-container">
@@ -30,14 +38,19 @@ class SearchBar extends React.Component {
           <input
             type="search"
             name="search"
+            value={this.state.search}
             className="search-input"
             placeholder="Search Restaurants"
             onChange={this.handleTextChange}
           />
-          <button type="submit" className="search-button">
-            <img src={SearchIcon} className="search-icon" />
+          <button
+            type="submit"
+            onClick={this.handleSubmit}
+            className="search-button">
+            <i className="search-icon fa fa-search" />
           </button>
         </form>
+        <button className="reset-button" onClick={this.handleReset}>Reset</button>
       </div>
     )
   }
@@ -45,7 +58,8 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
   updateSearchTerm: React.PropTypes.func.isRequired,
-  setShrink: React.PropTypes.func.isRequired
+  setShrink: React.PropTypes.func.isRequired,
+  resetSearch: React.PropTypes.func.isRequired
 }
 
 export default SearchBar
