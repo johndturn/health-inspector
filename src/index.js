@@ -85,7 +85,9 @@ class Inspector extends React.Component {
               loading={this.state.loading} />
           )} />
           <Route path="/about/" component={About} />
-          <Route path="/map/" component={Map} />
+          <Route path="/map/" render={() => (
+            <Map results={this.state.results} />
+          )} />
           <Route path="/restaurant/:restaurantId/" component={RestaurantInfo} />
         </div>
       </Router>
