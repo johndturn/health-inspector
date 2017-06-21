@@ -3,77 +3,50 @@ import React from 'react'
 import ListItem from '../ListItem/ListItem'
 
 import './ResultsList.css'
+import Arrow from '../../assets/arrow.png'
+import Doge from '../../assets/Doge.jpg'
+import LoadingGif from '../../assets/giphy.gif'
 
-class ResultsList extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-      loading: false,
-      results: [
-        {
-          'address': '3329 N MILWAUKEE AVE ',
-          'aka_name': 'Subway',
-          'city': 'CHICAGO',
-          'dba_name': 'Subway Sandwich And Salads',
-          'facility_type': 'Restaurant',
-          'inspection_date': '2014-10-01T00:00:00.000',
-          'inspection_id': '1497418',
-          'inspection_type': 'Canvass',
-          'latitude': '41.941701770957565',
-          'license_': '2074325',
-          'location': {
-            'type': 'Point',
-            'coordinates': [
-              -87.727891,
-              41.941702
-            ]
-          },
-          'longitude': '-87.72789069244538',
-          'results': 'Pass',
-          'risk': 'Risk 1 (High)',
-          'state': 'IL',
-          'zip': '60641'
-        },
-        {
-          'address': '3329 N MILWAUKEE AVE ',
-          'aka_name': 'Subway',
-          'city': 'CHICAGO',
-          'dba_name': 'Subway Sandwich And Salads',
-          'facility_type': 'Restaurant',
-          'inspection_date': '2014-10-01T00:00:00.000',
-          'inspection_id': '1497418',
-          'inspection_type': 'Canvass',
-          'latitude': '41.941701770957565',
-          'license_': '2074325',
-          'location': {
-            'type': 'Point',
-            'coordinates': [
-              -87.727891,
-              41.941702
-            ]
-          },
-          'longitude': '-87.72789069244538',
-          'results': 'Out of Business',
-          'risk': 'Risk 1 (High)',
-          'state': 'IL',
-          'zip': '60641'
-        }
-      ]
-    }
-  }
-
-  render() {
+const ResultsList = (props) => {
+  if (props.loading) {
+    return (
+      <div className="results-list-container">
+        <img src={LoadingGif} className="loading-gif" />
+      </div>
+    )
+  } else if (props.results.length > 0) {
     return (
       <div className="results-list-container">
         <div className="results-list">
-          { this.state.results.map((item, i) => (
+          { props.results.map((item, i) => (
             <ListItem key={i} restaurant={item} />
           ))}
         </div>
       </div>
     )
+  } else if (props.searched) {
+    return (
+      <div className="results-list-container">
+        <div className="no-results-found">
+          <h2>Wow, such empty...</h2>
+          <img src={Doge} />
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div className="results-list-container">
+        <h2>Kick it off by searching up top!</h2>
+        <img className="arrow" src={Arrow} />
+      </div>
+    )
   }
+}
+
+ResultsList.propTypes = {
+  results: React.PropTypes.array.isRequired,
+  searched: React.PropTypes.bool.isRequired,
+  loading: React.PropTypes.bool.isRequired
 }
 
 export default ResultsList

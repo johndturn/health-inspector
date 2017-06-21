@@ -11,11 +11,8 @@ class Search extends React.Component {
     }
   }
 
-  componentDidMount() {
-    // TODO: Remove - just for testing
-    setTimeout(() => {
-      this.setState({shrink: true})
-    }, 3000)
+  setShrink = (shrink) => {
+    this.setState({ shrink })
   }
 
   render() {
@@ -24,7 +21,9 @@ class Search extends React.Component {
       : 'search-container search-container-small'
     return (
       <div className={classes}>
-        <SearchBar updateSearchTerm={this.props.updateSearchTerm} />
+        <SearchBar
+          updateSearchTerm={this.props.updateSearchTerm}
+          setShrink={this.setShrink} />
       </div>
     )
   }

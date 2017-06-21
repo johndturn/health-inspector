@@ -20,6 +20,7 @@ class SearchBar extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    this.props.setShrink(true)
     this.props.updateSearchTerm(this.state.search)
   }
   render() {
@@ -43,7 +44,8 @@ class SearchBar extends React.Component {
 }
 
 SearchBar.propTypes = {
-  updateSearchTerm: React.PropTypes.func.isRequired
+  updateSearchTerm: React.PropTypes.func.isRequired,
+  setShrink: React.PropTypes.func.isRequired
 }
 
 export default SearchBar

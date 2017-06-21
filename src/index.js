@@ -18,7 +18,9 @@ class Inspector extends React.Component {
     super()
 
     this.state = {
-      results: []
+      results: [],
+      loading: false,
+      searched: false
     }
     this.getSearchData = this.getSearchData.bind(this)
   }
@@ -29,7 +31,8 @@ class Inspector extends React.Component {
     } else {
       this.getSearchData(searchTerm).then((results) => {
         this.setState({
-          results
+          results,
+          searched: true
         })
       }).catch((e) => {
         console.log(e.message)
@@ -38,6 +41,7 @@ class Inspector extends React.Component {
   }
 
   async getSearchData(searchTerm) {
+    this.setState({ loading: true })
     let response
     try {
       response = await fetch(`https://data.cityofchicago.org/resource/cwig-ma7x.json?$query=SELECT * where Contains(upper(dba_name), upper("${searchTerm}")) or Contains(upper(aka_name), upper("${searchTerm}")) LIMIT 100`)
@@ -53,6 +57,7 @@ class Inspector extends React.Component {
     } catch (e) {
       throw e
     }
+    this.setState({ loading: false })
     return json
   }
 
@@ -63,7 +68,12 @@ class Inspector extends React.Component {
           <Nav />
           <Search updateSearchTerm={this.updateSearchTerm} />
 
-          <Route exact path="/" component={ResultsList} />
+          <Route exact path="/" render={() => (
+            <ResultsList
+              searched={this.state.searched}
+              results={this.state.results}
+              loading={this.state.loading} />
+          )} />
           <Route path="/about/" component={About} />
           <Route path="/map/" component={Map} />
           <Route path="/restaurant/:restaurantId/" component={RestaurantInfo} />
