@@ -7,11 +7,8 @@ class Map extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      loading: true,
-      data: []
+      loading: true
     }
-    this.getSearchData = this.getSearchData.bind(this)
-
     this.map = null
     this.infoWindow = null
   }
@@ -26,41 +23,13 @@ class Map extends React.Component {
     }
   }
 
-  async getSearchData() {
-    let response
-    try {
-      response = await fetch(`https://data.cityofchicago.org/resource/cwig-ma7x.json?$query=SELECT * where Contains(dba_name, "${this.props.search}") or Contains(aka_name, "${this.props.search}") LIMIT 100`)
-      if (!response.ok) {
-        throw Error('Bad Request')
-      }
-    } catch (e) {
-      throw e
-    }
-    let json
-    try {
-      json = await response.json()
-    } catch (e) {
-      throw e
-    }
-    return json
-  }
-
   componentDidMount() {
-    // hit api for search
-    this.getSearchData().then((data) => {
-      // got the data
-      this.setState({
-        data
-      }, () => {
-        this.generateMarkers() // data set, use it to generate markers
-      })
-    }).catch((e) => {
-      console.log(e.message)
-    })
+    // generate makers if there is search data
+    this.props.results && this.generateMarkers()
   }
 
   generateMarkers = () => {
-    this.state.data.map((item) => {
+    this.props.results.map((item) => {
       const marker = new google.maps.Marker({
         position: {lat: parseFloat(item.latitude), lng: parseFloat(item.longitude)},
         map: this.map
@@ -93,7 +62,7 @@ class Map extends React.Component {
 Map.propTypes = {
   isScriptLoaded: React.PropTypes.bool,
   onError: React.PropTypes.func,
-  search: React.PropTypes.string
+  results: React.PropTypes.array
 }
 
 export default Map

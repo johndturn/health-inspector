@@ -1,5 +1,6 @@
 import React from 'react'
 import './Search.css'
+import SearchBar from './SearchBar'
 
 class Search extends React.Component {
   constructor() {
@@ -22,9 +23,13 @@ class Search extends React.Component {
       ? 'search-container'
       : 'search-container search-container-small'
     return (
-      <div className={classes} />
+      <div className={classes}>
+        <SearchBar updateSearchTerm={this.props.updateSearchTerm} />
+      </div>
     )
   }
 }
-
+Search.propTypes = {
+  updateSearchTerm: React.PropTypes.func.isRequired
+}
 export default Search

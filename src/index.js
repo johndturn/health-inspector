@@ -18,9 +18,38 @@ class Inspector extends React.Component {
     super()
 
     this.state = {
-      searchTerm: '',
       results: []
     }
+    this.getSearchData = this.getSearchData.bind(this)
+  }
+
+  updateSearchTerm = (searchTerm) => {
+    this.getSearchData(searchTerm).then((results) => {
+      this.setState({
+        results
+      })
+    }).catch((e) => {
+      console.log(e.message)
+    })
+  }
+
+  async getSearchData(searchTerm) {
+    let response
+    try {
+      response = await fetch(`https://data.cityofchicago.org/resource/cwig-ma7x.json?$query=SELECT * where Contains(dba_name, "${searchTerm}") or Contains(aka_name, "${searchTerm}") LIMIT 100`)
+      if (!response.ok) {
+        throw Error('Bad Request')
+      }
+    } catch (e) {
+      throw e
+    }
+    let json
+    try {
+      json = await response.json()
+    } catch (e) {
+      throw e
+    }
+    return json
   }
 
   render() {
@@ -28,7 +57,7 @@ class Inspector extends React.Component {
       <Router>
         <div>
           <Nav />
-          <Search />
+          <Search updateSearchTerm={this.updateSearchTerm} />
 
           <Route exact path="/" component={ResultsList} />
           <Route path="/about/" component={About} />
