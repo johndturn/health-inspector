@@ -1,0 +1,9 @@
+.search-container {
+    width: 100%;
+    height: 600px;
+    background: url(../../assets/HealthInspectorBGSmall.jpg) no-repeat center bottom fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

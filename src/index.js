@@ -8,6 +8,7 @@ import Map from './components/Map/Map'
 
 import Nav from './components/Nav/Nav'
 import ResultsList from './components/ResultsList/ResultsList'
+import Search from './components/Search/Search'
 
 import './styles/index.css'
 import registerServiceWorker from './config/registerServiceWorker'
@@ -27,6 +28,7 @@ class Inspector extends React.Component {
       <Router>
         <div>
           <Nav />
+          <Search />
 
           <Route exact path="/" component={ResultsList} />
           <Route path="/about/" component={About} />

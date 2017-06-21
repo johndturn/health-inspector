@@ -1,9 +1,10 @@
 import React from 'react'
+import './Search.css'
 
 class Search extends React.Component {
   render() {
     return (
-      <div>This is the Search page</div>
+      <div className="search-container" />
     )
   }
 }
