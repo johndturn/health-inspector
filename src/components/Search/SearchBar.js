@@ -6,7 +6,8 @@ class SearchBar extends React.Component {
     super()
 
     this.state = {
-      search: ''
+      search: '',
+      isListSelected: true
     }
   }
 
@@ -33,35 +34,49 @@ class SearchBar extends React.Component {
 
   showList = () => {
     this.context.router.history.push('/')
+    this.setState({
+      isListSelected: true
+    })
   }
 
   showMap = () => {
     this.context.router.history.push('/map/')
+    this.setState({
+      isListSelected: false
+    })
   }
 
   render() {
+    const mapButtonClasses = this.state.isListSelected ? 'map-button red' : 'map-button white'
+    const listButtonClasses = this.state.isListSelected ? 'list-button white' : 'list-button red'
     return (
-      <div className="searchbar-container">
-        <form onSubmit={this.handleSubmit} className="search-form">
-          <input
-            type="search"
-            name="search"
-            value={this.state.search}
-            className="search-input"
-            placeholder="Search Restaurants"
-            onChange={this.handleTextChange}
-          />
-          <button
-            type="submit"
-            onClick={this.handleSubmit}
-            className="search-button">
-            <i className="search-icon fa fa-search" />
+      <div>
+        <div className="searchbar-container">
+          <form onSubmit={this.handleSubmit} className="search-form">
+            <input
+              type="search"
+              name="search"
+              value={this.state.search}
+              className="search-input"
+              placeholder="Search Restaurants"
+              onChange={this.handleTextChange}
+            />
+            <button
+              type="submit"
+              onClick={this.handleSubmit}
+              className="search-button">
+              <i className="search-icon fa fa-search" />
+            </button>
+            <button className="reset-button" onClick={this.handleReset}>Reset</button>
+          </form>
+        </div>
+        <div className="toggle-container">
+          <button className={listButtonClasses} onClick={this.showList}>
+            <i className="fa fa-list" aria-hidden="true" />
           </button>
-        </form>
-        <button className="reset-button" onClick={this.handleReset}>Reset</button>
-        <div>
-          <button className="list-button" onClick={this.showList}>List</button>
-          <button className="map-button" onClick={this.showMap}>Map</button>
+          <button className={mapButtonClasses} onClick={this.showMap}>
+            <i className="fa fa-map-marker" aria-hidden="true" />
+          </button>
         </div>
       </div>
     )

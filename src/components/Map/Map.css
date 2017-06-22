@@ -2,12 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 730px
 }
 
 .map {
-  height: 725px;
-  width: 800px;
-  margin-top: 25px;
-  margin-bottom: 25px;
-
+  height: 100%;
+  width: 100vw;
 }

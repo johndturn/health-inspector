@@ -22,9 +22,8 @@
 }
 
 .searchbar-container {
-  width: 100%;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -50,7 +49,7 @@
 
 .reset-button {
     background-color: #D1262B;
-    height: 50px;
+    height: 44px;
     width: 100px;
     font-family: 'Open Sans', sans-serif;
     margin-top: 10px;
@@ -58,12 +57,53 @@
     vertical-align: middle;
     margin-bottom: 4px;
     box-sizing: border-box;
-    font-size: 2em;
+    font-size: 1.7em;
     color: white;
     border: none;
+    margin-bottom: 13px;
+    margin-left: 10px;
+    border: 1px solid #ce2932;
+    border-radius: 4px;
 }
 
 .reset-button:hover {
     background-color: white;
     color: #D1262B;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.red {
+    background-color: #D1262B;
+    color: white;
+}
+
+.white {
+    background-color: white;
+    color: #D1262B;
+}
+
+.list-button {
+   height:50px;
+   width:150px;
+   cursor:pointer;
+   box-shadow:none;
+   border: none;
+   border-right: 0.5px solid black;
+   font-size: 1.7em;
+   border-radius: 4px;
+}
+
+.map-button {
+   height:50px;
+   width:150px;
+   cursor:pointer;
+   box-shadow:none;
+   border: none;
+   font-size: 2em;
+   border-radius: 4px;
 }
