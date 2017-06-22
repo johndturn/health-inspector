@@ -88,8 +88,10 @@ class Inspector extends React.Component {
     return (
       <Router>
         <div>
-          <Nav />
+          <Nav
+            userHasSearched={this.state.searched} />
           <Search
+            logoSizeIsSmall={this.state.searched}
             updateSearchTerm={this.updateSearchTerm}
             resetSearch={this.resetSearch} />
 
