@@ -33,6 +33,14 @@ class Map extends React.Component {
     })
     this.markers = []
     if (this.props.results.length === 0) {
+      if (this.map) {
+        this.map.setOptions({ // disable scrolling when there are now markers
+          draggable: false,
+          zoomControl: false,
+          scrollwheel: false,
+          disableDoubleClickZoom: true
+        })
+      }
       return null
     }
     // load new markers from results
