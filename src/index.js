@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import scriptLoader from 'react-async-script-loader'
 
 import About from './pages/About/About'
 import RestaurantInfo from './pages/RestaurantInfo/RestaurantInfo'
@@ -13,6 +14,7 @@ import Search from './components/Search/Search'
 import './styles/index.css'
 import registerServiceWorker from './config/registerServiceWorker'
 
+@scriptLoader(['https://maps.googleapis.com/maps/api/js?key=AIzaSyBfFo3D8jcKdksiauYAs5s3llNeewx0lMg'])
 class Inspector extends React.Component {
   constructor() {
     super()
@@ -20,9 +22,22 @@ class Inspector extends React.Component {
     this.state = {
       results: [],
       loading: false,
-      searched: false
+      searched: false,
+      mapScriptLoaded: false
     }
     this.getSearchData = this.getSearchData.bind(this)
+  }
+
+  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+    if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
+      if (isScriptLoadSucceed) {
+        this.setState({
+          mapScriptLoaded: true
+        }, () => {
+          console.log(this.state.mapScriptLoaded)
+        })
+      } else this.props.onError()
+    }
   }
 
   updateSearchTerm = (searchTerm) => {
@@ -86,13 +101,19 @@ class Inspector extends React.Component {
           )} />
           <Route path="/about/" component={About} />
           <Route path="/map/" render={() => (
-            <Map results={this.state.results} />
+            <Map results={this.state.results}
+              isScriptLoadSucceed={this.state.mapScriptLoaded}
+            />
           )} />
           <Route path="/restaurant/:restaurantId/" component={RestaurantInfo} />
         </div>
       </Router>
     )
   }
+}
+Inspector.propTypes = {
+  isScriptLoaded: React.PropTypes.bool,
+  onError: React.PropTypes.func
 }
 
 ReactDOM.render(<Inspector />, document.getElementById('root'))

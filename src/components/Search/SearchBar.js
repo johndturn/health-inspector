@@ -31,6 +31,14 @@ class SearchBar extends React.Component {
     this.props.resetSearch()
   }
 
+  showList = () => {
+    this.context.router.history.push('/')
+  }
+
+  showMap = () => {
+    this.context.router.history.push('/map/')
+  }
+
   render() {
     return (
       <div className="searchbar-container">
@@ -51,6 +59,10 @@ class SearchBar extends React.Component {
           </button>
         </form>
         <button className="reset-button" onClick={this.handleReset}>Reset</button>
+        <div>
+          <button className="list-button" onClick={this.showList}>List</button>
+          <button className="map-button" onClick={this.showMap}>Map</button>
+        </div>
       </div>
     )
   }
@@ -60,6 +72,10 @@ SearchBar.propTypes = {
   updateSearchTerm: React.PropTypes.func.isRequired,
   setShrink: React.PropTypes.func.isRequired,
   resetSearch: React.PropTypes.func.isRequired
+}
+
+SearchBar.contextTypes = {
+  router: React.PropTypes.object
 }
 
 export default SearchBar
