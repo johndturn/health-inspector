@@ -1,5 +1,6 @@
 import React from 'react'
 import './SearchBar.css'
+import FilterButton from '../FilterButton/FilterButton'
 
 class SearchBar extends React.Component {
   constructor() {
@@ -51,11 +52,11 @@ class SearchBar extends React.Component {
   render() {
     const mapButtonClasses = this.state.isListSelected ? 'map-button red' : 'map-button white'
     const listButtonClasses = this.state.isListSelected ? 'list-button white' : 'list-button red'
-    const formClasses = this.state.searched ? 'search-form searched' : 'search-form'
     return (
       <div>
         <div className="searchbar-container">
-          <form onSubmit={this.handleSubmit} className={formClasses}>
+          <form onSubmit={this.handleSubmit} className="search-form">
+            <FilterButton filter={this.props.filter} changeFilter={this.props.changeFilter} />
             <input
               type="search"
               name="search"
@@ -91,7 +92,9 @@ class SearchBar extends React.Component {
 SearchBar.propTypes = {
   updateSearchTerm: React.PropTypes.func.isRequired,
   setShrink: React.PropTypes.func.isRequired,
-  resetSearch: React.PropTypes.func.isRequired
+  resetSearch: React.PropTypes.func.isRequired,
+  changeFilter: React.PropTypes.func.isRequired,
+  filter: React.PropTypes.string.isRequired
 }
 
 SearchBar.contextTypes = {

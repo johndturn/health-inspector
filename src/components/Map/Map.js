@@ -55,24 +55,33 @@ class Map extends React.Component {
         } else {
           markerIcon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
         }
-        const marker = new google.maps.Marker({
-          position: {lat: parseFloat(item.latitude), lng: parseFloat(item.longitude)},
-          map: this.map,
-          icon: markerIcon
-        })
-        this.markers.push(marker)
-
-        google.maps.event.addListener(marker, 'click', ((marker) => {
-          return () => {
-            let infowindow = new google.maps.InfoWindow({
-              content: `<p>${item.dba_name}<br />
+        let pushMarker = false // push based on filters
+        if (this.props.filter === 'All') {
+          pushMarker = true
+        } else if (this.props.filter === 'Pass' && item.results === 'Pass') {
+          pushMarker = true
+        } else if (this.props.filter === 'Fail' && item.results === 'Fail') {
+          pushMarker = true
+        }
+        if (pushMarker) {
+          const marker = new google.maps.Marker({
+            position: {lat: parseFloat(item.latitude), lng: parseFloat(item.longitude)},
+            map: this.map,
+            icon: markerIcon
+          })
+          this.markers.push(marker)
+          google.maps.event.addListener(marker, 'click', ((marker) => {
+            return () => {
+              let infowindow = new google.maps.InfoWindow({
+                content: `<p>${item.dba_name}<br />
                         ${item.address}<br />
-                        ${item.results}<br />
-                        </p>`
-            })
-            infowindow.open(this.map, marker)
-          }
-        })(marker))
+                          ${item.results}<br />
+                          </p>`
+              })
+              infowindow.open(this.map, marker)
+            }
+          })(marker))
+        }
       }
     })
   }
@@ -90,7 +99,8 @@ class Map extends React.Component {
 
 Map.propTypes = {
   results: React.PropTypes.array,
-  isScriptLoadSucceed: React.PropTypes.bool
+  isScriptLoadSucceed: React.PropTypes.bool,
+  filter: React.PropTypes.string.isRequired
 }
 
 export default Map

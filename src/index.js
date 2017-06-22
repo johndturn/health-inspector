@@ -23,7 +23,8 @@ class Inspector extends React.Component {
       results: [],
       loading: false,
       searched: false,
-      mapScriptLoaded: false
+      mapScriptLoaded: false,
+      filter: 'All'
     }
     this.getSearchData = this.getSearchData.bind(this)
   }
@@ -33,8 +34,6 @@ class Inspector extends React.Component {
       if (isScriptLoadSucceed) {
         this.setState({
           mapScriptLoaded: true
-        }, () => {
-          console.log(this.state.mapScriptLoaded)
         })
       } else this.props.onError()
     }
@@ -84,6 +83,12 @@ class Inspector extends React.Component {
     return json
   }
 
+  changeFilter = (filter) => {
+    this.setState({
+      filter
+    })
+  }
+
   render() {
     return (
       <Router>
@@ -93,18 +98,22 @@ class Inspector extends React.Component {
           <Search
             logoSizeIsSmall={this.state.searched}
             updateSearchTerm={this.updateSearchTerm}
-            resetSearch={this.resetSearch} />
+            resetSearch={this.resetSearch}
+            changeFilter={this.changeFilter}
+            filter={this.state.filter} />
 
           <Route exact path="/" render={() => (
             <ResultsList
               searched={this.state.searched}
               results={this.state.results}
-              loading={this.state.loading} />
+              loading={this.state.loading}
+              filter={this.state.filter} />
           )} />
           <Route path="/about/" component={About} />
           <Route path="/map/" render={() => (
             <Map results={this.state.results}
               isScriptLoadSucceed={this.state.mapScriptLoaded}
+              filter={this.state.filter}
             />
           )} />
           <Route path="/restaurant/:restaurantId/" component={RestaurantInfo} />
