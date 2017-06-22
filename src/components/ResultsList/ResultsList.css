@@ -6,6 +6,11 @@
     align-items: center;
 }
 
+.results-list-container > h2 {
+    padding: 10px;
+    text-align: center;
+}
+
 .loading-gif {
     width: 300px;
 }
@@ -13,6 +18,9 @@
 .results-list {
     display: flex;
     flex-direction: column;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
 }
 
 .no-results-found {

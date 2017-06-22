@@ -67,12 +67,16 @@ class ListItem extends React.Component {
     let name = this.props.restaurant.aka_name.toLowerCase()
     name = `${name.substring(0, 1).toUpperCase()}${name.substring(1)}`
     const date = moment(this.props.restaurant.inspection_date)
-    const classes = this.state.showMore
+    const containerClasses = this.state.showMore
       ? 'result-list-item-container result-list-item-container-large'
       : 'result-list-item-container'
 
+    const iconClass = this.state.showMore
+      ? 'result-list-item-more-icon rotated'
+      : 'result-list-item-more-icon'
+
     return (
-      <div className={classes} onClick={(e) => this.toggleShowMore(e, !this.state.showMore)}>
+      <div className={containerClasses} onClick={(e) => this.toggleShowMore(e, !this.state.showMore)}>
         <div className="result-list-item">
           <div className="result-list-item-description">
             <h2>{name}</h2>
@@ -83,6 +87,9 @@ class ListItem extends React.Component {
             <img src={badge}
               alt={this.props.restaurant.results}
               title={this.props.restaurant.results} />
+          </div>
+          <div className={iconClass}>
+            <i className="fa fa-angle-down" />
           </div>
         </div>
         { this.state.showMore && this.generateMore() }
