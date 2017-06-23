@@ -15,6 +15,10 @@ class FilterButton extends React.Component {
      // handle outside click
      this.toggleDropdown(e)
    }
+   _changeFilter = (filter) => {
+     this.toggleDropdown(true)
+     this.props.changeFilter(filter)
+   }
 
    toggleDropdown = (outside) => {
      // if window click is outside, dropdown is always false
@@ -28,9 +32,9 @@ class FilterButton extends React.Component {
           <i className="fa fa-angle-down" aria-hidden="true" />
         </button>
         <div id="myDropdown" className={dropdownContainerClasses}>
-          <button type="button" onClick={() => this.props.changeFilter('All')} className="filter-item">All</button>
-          <button type="button" onClick={() => this.props.changeFilter('Pass')} className="filter-item">Pass</button>
-          <button type="button" onClick={() => this.props.changeFilter('Fail')} className="filter-item">Fail</button>
+          <button type="button" onClick={() => this._changeFilter('All')} className="filter-item">All</button>
+          <button type="button" onClick={() => this._changeFilter('Pass')} className="filter-item">Pass</button>
+          <button type="button" onClick={() => this._changeFilter('Fail')} className="filter-item">Fail</button>
         </div>
       </div>
     )

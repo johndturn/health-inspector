@@ -19,10 +19,20 @@ const ResultsList = (props) => {
       <div className="results-list-container">
         <div className="results-list">
           { props.results.map((item, i) => {
-            if (item.results !== 'Out of Business' && (item.aka_name || item.db_name)) {
-              return (
-                <ListItem key={i} restaurant={item} />
-              )
+            if (item.results.toUpperCase() !== 'Out of Business'.toUpperCase() && (item.aka_name || item.db_name)) {
+              let returnItem = false
+              if (props.filter.toUpperCase() === 'All'.toUpperCase()) {
+                returnItem = true
+              } else if (props.filter.toUpperCase() === 'Pass'.toUpperCase() && item.results.toUpperCase() === 'Pass'.toUpperCase()) {
+                returnItem = true
+              } else if (props.filter.toUpperCase() === 'Fail'.toUpperCase() && item.results.toUpperCase() === 'Fail'.toUpperCase()) {
+                returnItem = true
+              }
+              if (returnItem) {
+                return (
+                  <ListItem key={i} restaurant={item} />
+                )
+              }
             }
           })}
         </div>
@@ -50,7 +60,8 @@ const ResultsList = (props) => {
 ResultsList.propTypes = {
   results: React.PropTypes.array.isRequired,
   searched: React.PropTypes.bool.isRequired,
-  loading: React.PropTypes.bool.isRequired
+  loading: React.PropTypes.bool.isRequired,
+  filter: React.PropTypes.string.isRequired
 }
 
 export default ResultsList

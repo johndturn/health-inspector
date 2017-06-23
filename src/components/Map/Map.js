@@ -56,11 +56,11 @@ class Map extends React.Component {
           markerIcon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
         }
         let pushMarker = false // push based on filters
-        if (this.props.filter === 'All') {
+        if (this.props.filter.toUpperCase() === 'All'.toUpperCase()) {
           pushMarker = true
-        } else if (this.props.filter === 'Pass' && item.results === 'Pass') {
+        } else if (this.props.filter.toUpperCase() === 'Pass'.toUpperCase() && item.results.toUpperCase() === 'Pass'.toUpperCase()) {
           pushMarker = true
-        } else if (this.props.filter === 'Fail' && item.results === 'Fail') {
+        } else if (this.props.filter.toUpperCase() === 'Fail'.toUpperCase() && item.results.toUpperCase() === 'Fail'.toUpperCase()) {
           pushMarker = true
         }
         if (pushMarker) {
