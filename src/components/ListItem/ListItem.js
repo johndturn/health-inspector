@@ -3,7 +3,7 @@ import moment from 'moment'
 
 import GreenBadge from '../../assets/GreenBadge.png'
 import RedBadge from '../../assets/RedBadge.png'
-import GreyBadge from '../../assets/GreyBadge.png'
+import YellowBadge from '../../assets/YellowBadge.png'
 
 import './ListItem.css'
 import NumbersLookup from '../../config/violationsLookup'
@@ -61,10 +61,14 @@ class ListItem extends React.Component {
     } else if (this.props.restaurant.results === 'Pass') {
       badge = GreenBadge
     } else {
-      badge = GreyBadge
+      badge = YellowBadge
     }
 
-    let name = this.props.restaurant.aka_name.toLowerCase()
+    let name = this.props.restaurant.aka_name
+      ? this.props.restaurant.aka_name
+      : this.props.restaurant.db_name
+
+    name = name.toLowerCase()
     name = `${name.substring(0, 1).toUpperCase()}${name.substring(1)}`
     const date = moment(this.props.restaurant.inspection_date)
     const containerClasses = this.state.showMore

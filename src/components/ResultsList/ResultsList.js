@@ -18,9 +18,13 @@ const ResultsList = (props) => {
     return (
       <div className="results-list-container">
         <div className="results-list">
-          { props.results.map((item, i) => (
-            <ListItem key={i} restaurant={item} />
-          ))}
+          { props.results.map((item, i) => {
+            if (item.results !== 'Out of Business' && (item.aka_name || item.db_name)) {
+              return (
+                <ListItem key={i} restaurant={item} />
+              )
+            }
+          })}
         </div>
       </div>
     )
