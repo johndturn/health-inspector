@@ -13,16 +13,13 @@
     transition: height .5s;
 }
 
-.logo-container {
-  width: 700px;
-  height: 150px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+@media(max-width: 450px) {
+  .search-container {
+    height: 100vh;
+  }
 }
 
-.logo-container-hide {
+.search-logo-container-hide {
   display: none;
   height: 0px;
   width: 0px;

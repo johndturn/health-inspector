@@ -7,6 +7,7 @@ class SearchBar extends React.Component {
 
     this.state = {
       search: '',
+      searched: false,
       isListSelected: true
     }
   }
@@ -20,6 +21,7 @@ class SearchBar extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.state.search !== '') {
+      this.setState({ searched: true })
       this.props.setShrink(true)
       this.props.updateSearchTerm(this.state.search)
     }
@@ -27,7 +29,7 @@ class SearchBar extends React.Component {
 
   handleReset = (e) => {
     e.preventDefault()
-    this.setState({ search: '' })
+    this.setState({ search: '', searched: false })
     this.props.setShrink(false)
     this.props.resetSearch()
   }
@@ -49,10 +51,11 @@ class SearchBar extends React.Component {
   render() {
     const mapButtonClasses = this.state.isListSelected ? 'map-button red' : 'map-button white'
     const listButtonClasses = this.state.isListSelected ? 'list-button white' : 'list-button red'
+    const formClasses = this.state.searched ? 'search-form searched' : 'search-form'
     return (
       <div>
         <div className="searchbar-container">
-          <form onSubmit={this.handleSubmit} className="search-form">
+          <form onSubmit={this.handleSubmit} className={formClasses}>
             <input
               type="search"
               name="search"
@@ -67,7 +70,9 @@ class SearchBar extends React.Component {
               className="search-button">
               <i className="search-icon fa fa-search" />
             </button>
-            <button className="reset-button" onClick={this.handleReset}>Reset</button>
+            <button className="reset-button" onClick={this.handleReset}>
+              <i className="fa fa-repeat" />
+            </button>
           </form>
         </div>
         <div className="toggle-container">

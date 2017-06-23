@@ -20,9 +20,7 @@ class Search extends React.Component {
     const classes = !this.state.shrink
       ? 'search-container'
       : 'search-container search-container-small'
-    const logoContainerClasses = this.props.logoSizeIsSmall
-      ? 'logo-container-hide'
-      : 'logo-container'
+    const logoContainerClasses = this.props.logoSizeIsSmall && 'search-logo-container-hide'
     return (
       <div className={classes}>
         <div className={logoContainerClasses}>
